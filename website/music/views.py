@@ -1,6 +1,6 @@
 # from django.http import HttpResponse
-from django.http import Http404
-from django.shortcuts import render
+# from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 #from  django.template import loader
 from .models import Album
 
@@ -21,9 +21,10 @@ def index(request):
 
 
 def detail(request, album_id):
-    try:
-        album = Album.objects.get(pk=album_id)
-    except Album.DoesNotExist:
-        raise Http404("Album Does Not Exists")
+    """ try:
+            album = Album.objects.get(pk=album_id)
+        except Album.DoesNotExist:
+            raise Http404("Album Does Not Exists")"""
+    album = get_object_or_404(Album, pk=album_id)
     return render(request, 'music/detail.html', {'album': album})
 
